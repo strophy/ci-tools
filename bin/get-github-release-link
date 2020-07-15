@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+const GitHub = require('github-api');
+const getGithubReleaseLinkFactory = require('../src/getGithubReleaseLinkFactory');
+
+async function main() {
+  const packageFilePath = process.argv[2];
+  const repositoryPath = process.argv[3];
+
+  // eslint-disable-next-line import/no-dynamic-require,global-require
+  const { version } = require(packageFilePath);
+
+  const githubClient = new GitHub({
+    token: process.env.GITHUB_TOKEN,
+  });
+
+  const getGithubReleaseLink = getGithubReleaseLinkFactory(githubClient);
+
+  const tarballURL = await getGithubReleaseLink(version, repositoryPath);
+
+  console.log(tarballURL);
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

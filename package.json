@@ -1,0 +1,38 @@
+{
+  "name": "travis-ci-tools",
+  "version": "0.1.0",
+  "description": "Collection of Travis helper scripts",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "NODE_ENV=test mocha ./test/**/*.spec.js"
+  },
+  "bin": {
+    "print-bells": "bin/print-visual-bells.sh",
+    "get-github-release-link": "bin/get-github-release-link",
+    "get-release-version": "bin/get-release-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawid-h/travis-ci-tools.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jawid-h/travis-ci-tools/issues"
+  },
+  "homepage": "https://github.com/jawid-h/travis-ci-tools#readme",
+  "dependencies": {
+    "github-api": "^3.3.0",
+    "semver": "^7.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "dirty-chai": "^2.0.1",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "mocha": "^8.0.1",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0"
+  }
+}
