@@ -30,4 +30,4 @@ Arguments:
 
 ### print-bells
 
-Just runs in a background and prints `bell` characters to `stdout`. Useful to kep Travis build alive.
+Just runs in a background and prints `bell` characters to `stdout`. Useful to keep Travis build alive.
