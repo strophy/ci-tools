@@ -14,7 +14,9 @@ function getReleaseVersion(packageVersion, options = {}) {
   const major = semver.major(packageVersion);
   const minor = semver.minor(packageVersion);
 
-  const majorVersion = options.overrideMajorVersion ? options.overrideMajorVersion : major;
+  const majorVersion = options.overrideMajorVersion !== undefined
+    ? options.overrideMajorVersion
+    : major;
 
   let version = `${majorVersion}.${minor}`;
 

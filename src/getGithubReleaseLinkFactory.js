@@ -13,10 +13,12 @@ function getGithubReleaseLinkFactory(githubClient) {
    *
    * @param {string} packageVersion
    * @param {string} repositoryPath
+   * @param {Object} [options]
+   * @param {string} [options.overrideMajorVersion]
    *
    * @return {Promise<string>}
    */
-  async function getGithubReleaseLink(packageVersion, repositoryPath) {
+  async function getGithubReleaseLink(packageVersion, repositoryPath, options = {}) {
     const [repoUser, repoName] = repositoryPath.split('/');
 
     const suiteVersion = semver.coerce(packageVersion);
@@ -31,9 +33,13 @@ function getGithubReleaseLinkFactory(githubClient) {
       .filter((release) => {
         const releaseVersion = semver.coerce(release.tag_name);
 
+        const majorVersion = options.overrideMajorVersion !== undefined
+          ? options.overrideMajorVersion
+          : suiteVersion.major;
+
         return semver.satisfies(
           `${releaseVersion.major}.${releaseVersion.minor}.${releaseVersion.patch}`,
-          `${suiteVersion.major}.${suiteVersion.minor}`,
+          `${majorVersion}.${suiteVersion.minor}`,
         );
       });
 

@@ -36,6 +36,15 @@ describe('getGithubReleaseLinkFactory', () => {
     expect(githubMock.getRepo).to.have.been.calledWithExactly('dashevo', 'test');
   });
 
+  it('should return latest tag link based on package version and repository url with overrided MAJOR', async () => {
+    const result = await getGithubReleaseLink('1.14.0-dev.1', 'dashevo/test', {
+      overrideMajorVersion: 0,
+    });
+
+    expect(result).to.equal('url/42');
+    expect(githubMock.getRepo).to.have.been.calledWithExactly('dashevo', 'test');
+  });
+
   it('should throw an error if no matching versions found among releases', async () => {
     releases = [
       { tag_name: 'v0.1.0', tarball_url: 'url/1' },
