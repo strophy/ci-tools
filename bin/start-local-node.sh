@@ -54,7 +54,7 @@ rm -rf "$TMP"
 mkdir "$TMP"
 
 #Download dapi from defined branch
-mn_bootstrap_dapi_options=""
+mn_bootstrap_dapi_options="--dapi-image-build-path="
 if [ -n "$dapi_branch" ]
 then
   echo "Cloning DAPI from branch $dapi_branch"
@@ -66,7 +66,7 @@ then
 fi
 echo "$drive_branch"
 #Download drive from defined branch
-mn_bootstrap_drive_options=""
+mn_bootstrap_drive_options="--drive-image-build-path="
 if [ -n "$drive_branch" ]
 then
   echo "Cloning Drive from branch $dapi_branch"
