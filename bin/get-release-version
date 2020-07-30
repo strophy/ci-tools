@@ -4,7 +4,7 @@ const getReleaseVersion = require('../src/getReleaseVersion');
 
 async function main() {
   const packageFilePath = process.argv[2];
-  const overrideMajorVersion = process.argv[3];
+  const overrideMajorVersion = process.argv[3] || undefined;
 
   // eslint-disable-next-line import/no-dynamic-require,global-require
   const { version } = require(packageFilePath);

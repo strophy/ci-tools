@@ -6,7 +6,7 @@ const getGithubReleaseLinkFactory = require('../src/getGithubReleaseLinkFactory'
 async function main() {
   const packageFilePath = process.argv[2];
   const repositoryPath = process.argv[3];
-  const overrideMajorVersion = process.argv[4];
+  const overrideMajorVersion = process.argv[4] || undefined;
 
   // eslint-disable-next-line import/no-dynamic-require,global-require
   const { version } = require(packageFilePath);
