@@ -9,7 +9,8 @@
   "bin": {
     "print-bells": "bin/print-visual-bells.sh",
     "get-github-release-link": "bin/get-github-release-link",
-    "get-release-version": "bin/get-release-version"
+    "get-release-version": "bin/get-release-version",
+    "start-local-node": "bin/start-local-node.sh"
   },
   "repository": {
     "type": "git",
