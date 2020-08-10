@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jawid-h/travis-ci-tools.git"
+    "url": "git+https://github.com/dashevo/travis-ci-tools.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jawid-h/travis-ci-tools/issues"
+    "url": "https://github.com/dashevo/travis-ci-tools/issues"
   },
-  "homepage": "https://github.com/jawid-h/travis-ci-tools#readme",
+  "homepage": "https://github.com/dashevo/travis-ci-tools#readme",
   "dependencies": {
     "github-api": "^3.3.0",
     "semver": "^7.3.2"
