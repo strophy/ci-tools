@@ -88,16 +88,16 @@ npm ci && npm link
 
 #Initialize mn-bootstrap
 echo "Initializing mn-bootstrap"
-OUTPUT=$(mn setup-for-local-development 127.0.0.1 20001 "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
+mn config:default local
+OUTPUT=$(mn setup-for-local-development "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
 FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
-OPERATOR_BLS_KEY=$(echo "$OUTPUT" | grep -m 2 "Private key:" | tail -n 1 | awk '{printf $4}')
 DPNS_CONTRACT_ID=$(echo "$OUTPUT" | grep -m 1 "DPNS contract ID:" | awk '{printf $5}')
 DPNS_TOP_LEVEL_IDENTITY_ID=$(echo "$OUTPUT" | grep -m 1 "DPNS identity:" | awk '{printf $4}')
 DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "HD private key:" | awk '{$1=""; printf $5}')
 
 #Start mn-bootstrap
 echo "Starting mn-bootstrap"
-mn start local 127.0.0.1 20001 -p="$OPERATOR_BLS_KEY" --dpns-contract-id="$DPNS_CONTRACT_ID" --dpns-top-level-identity="$DPNS_TOP_LEVEL_IDENTITY_ID" "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options"
+mn start local "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options"
 
 #Export variables
 export CURRENT_VERSION
