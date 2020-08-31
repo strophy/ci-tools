@@ -1,6 +1,6 @@
 {
   "name": "travis-ci-tools",
-  "version": "0.15.4",
+  "version": "0.15.5",
   "description": "Collection of Travis helper scripts",
   "scripts": {
     "lint": "eslint .",
@@ -32,7 +32,7 @@
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "mocha": "^8.0.1",
+    "mocha": "^8.1.3",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0"
   }
