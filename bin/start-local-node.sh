@@ -4,11 +4,12 @@ set -ea
 
 cmd_usage="Start local node
 
-Usage: prepare-mn-bootstrap.sh <path-to-package.json> [options]
+Usage: start-local-node.sh <path-to-package.json> [options]
   <path-to-package.json> must be an absolute path including file name
 
   Options:
   --override-major-version    - major version to use
+  --override-minor-version    - minor version to use
   --dapi-branch               - dapi branch to be injected into mn-bootstrap
   --drive-branch              - drive branch to be injected into mn-bootstrap
 "
@@ -67,7 +68,7 @@ then
   git checkout "$dapi_branch"
   mn_bootstrap_dapi_options="--dapi-image-build-path=$TMP/dapi"
 fi
-echo "$drive_branch"
+
 #Download drive from defined branch
 mn_bootstrap_drive_options="--drive-image-build-path="
 if [ -n "$drive_branch" ]
@@ -91,11 +92,16 @@ npm ci && npm link
 
 #Initialize mn-bootstrap
 echo "Initializing mn-bootstrap"
+
 mn config:default local
+mn config:set core.miner.enable true
+mn config:set core.miner.interval 1s
+
 OUTPUT=$(mn setup-for-local-development "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
+
 FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
-DPNS_CONTRACT_ID=$(echo "$OUTPUT" | grep -m 1 "DPNS contract ID:" | awk '{printf $5}')
-DPNS_TOP_LEVEL_IDENTITY_ID=$(echo "$OUTPUT" | grep -m 1 "DPNS identity:" | awk '{printf $4}')
+DPNS_CONTRACT_ID=$(mn config:get platform.dpns.contractId)
+DPNS_TOP_LEVEL_IDENTITY_ID=$(mn config:get platform.dpns.ownerId)
 DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "HD private key:" | awk '{$1=""; printf $5}')
 
 #Start mn-bootstrap
