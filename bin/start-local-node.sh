@@ -104,7 +104,7 @@ OUTPUT=$(mn setup-for-local-development "$mn_bootstrap_dapi_options" "$mn_bootst
 
 FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
 DPNS_CONTRACT_ID=$(mn config:get platform.dpns.contract.id)
-DPNS_CONTRACT_BLOCK_HEIGHT=$(mn config:get platform.dpns.contract.height)
+DPNS_CONTRACT_BLOCK_HEIGHT=$(mn config:get platform.dpns.contract.blockHeight)
 DPNS_TOP_LEVEL_IDENTITY_ID=$(mn config:get platform.dpns.ownerId)
 DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "HD private key:" | awk '{$1=""; printf $5}')
 
