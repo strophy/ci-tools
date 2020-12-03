@@ -12,6 +12,7 @@ Usage: start-local-node.sh <path-to-package.json> [options]
   --override-minor-version    - minor version to use
   --dapi-branch               - dapi branch to be injected into mn-bootstrap
   --drive-branch              - drive branch to be injected into mn-bootstrap
+  --sdk-branch                - Dash SDK (DashJS) branch to be injected into mn-bootstrap
 "
 
 PACKAGE_JSON_PATH="$1"
@@ -42,6 +43,9 @@ case ${i} in
     ;;
     --drive-branch=*)
     drive_branch="${i#*=}"
+    ;;
+    --sdk-branch=*)
+    sdk_branch="${i#*=}"
     ;;
 esac
 done
@@ -87,7 +91,16 @@ curl -L "$MN_RELEASE_LINK" > "$TMP"/mn-bootstrap.tar.gz
 mkdir "$TMP"/mn-bootstrap && tar -C "$TMP"/mn-bootstrap -xvf "$TMP"/mn-bootstrap.tar.gz
 MN_RELEASE_DIR="$(ls "$TMP"/mn-bootstrap)"
 cd "$TMP"/mn-bootstrap/"$MN_RELEASE_DIR"
-npm ci && npm link
+
+npm ci
+
+if [ -n "$sdk_branch" ]
+then
+  echo "Installing Dash SDK from branch $sdk_branch"
+  npm i "github:dashevo/DashJS#$sdk_branch"
+fi
+
+npm link
 
 #Initialize mn-bootstrap
 echo "Initializing mn-bootstrap"
