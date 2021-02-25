@@ -32,7 +32,12 @@ runs:
       shell: bash
     - name: Make work directory
       shell: bash
-      run: mkdir -p ~/work/ci-tools
+      run: |
+        echo "Making work dir"
+        mkdir -p ~/work/ci-tools
+        cd ~/work/ci-tools
+        pwd
+        ls
     - name: Set up tools
       shell: bash
       working-directory: ~/work/ci-tools
