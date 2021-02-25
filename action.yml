@@ -38,10 +38,20 @@ runs:
         cd ~/work/ci-tools
         pwd
         ls
+    - name: test working dir
+      shell: bash
+      run: |
+        cd ~/work
+        ls
+        pwd
+        cd ci-tools
+        ls
+        pwd
     - name: Set up tools
       shell: bash
-      working-directory: ~/work/ci-tools
+      working-directory: ci-tools
       run: |
+        pwd
         echo "Starting to set up tools"
         pwd
         ls
