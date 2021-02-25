@@ -30,6 +30,9 @@ runs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: echo "$GITHUB_CONTEXT"
       shell: bash
+    - name: Make work directory
+      shell: bash
+      run: mkdir -p ~/work/ci-tools
     - name: Set up tools
       shell: bash
       working-directory: ~/work/ci-tools
