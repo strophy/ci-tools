@@ -26,9 +26,9 @@ outputs:
   dpns-top-level-identity-private-key:
     description: DPNS top level identity private key
     value: ${{ steps.set-variables.outputs.dpns-top-level-identity-private-key}}
-  sdk-install:
-    description: SDK install
-    value: ${{ steps.set-variables.outputs.}}
+  # sdk-install:
+  #   description: SDK install
+  #   value: ${{ steps.set-variables.outputs.}}
 runs:
   using: "composite"
   steps:
