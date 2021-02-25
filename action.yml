@@ -34,6 +34,8 @@ runs:
       shell: bash
       run: |
         echo "Making work dir"
+        echo "Starting dir:"
+        pwd
         mkdir -p ~/work/ci-tools
         cd ~/work/ci-tools
         pwd
