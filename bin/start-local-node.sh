@@ -113,7 +113,7 @@ mn config:set core.miner.interval 1s
 mn config:set environment development
 mn config:set platform.drive.abci.log.stdout.level trace
 
-OUTPUT=$(mn setup local "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
+mn setup local
 
 FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
 DPNS_CONTRACT_ID=$(mn config:get platform.dpns.contract.id)
@@ -132,7 +132,7 @@ echo "DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY: ${DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY
 
 #Start mn-bootstrap
 echo "Starting mn-bootstrap"
-mn start "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options"
+mn start
 
 #Export variables
 export CURRENT_VERSION
