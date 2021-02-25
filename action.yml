@@ -32,6 +32,7 @@ runs:
       shell: bash
     - name: Set up tools
       shell: bash
+      working-directory: ~/work/ci-tools
       run: |
         echo "Starting to set up tools"
         pwd
