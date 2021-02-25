@@ -1,0 +1,43 @@
+name: 'Start Dash Local Node'
+description: 'Invokes mn-bootstrap to set up a local node for CI'
+inputs:
+  dapi-branch:
+    description: 'dapi branch to be injected into mn-bootstrap'
+    default: GITHUB_REF
+  drive-branch:
+    description: 'drive branch to be injected into mn-bootstrap'
+    default: GITHUB_REF
+  sdk-branch:
+    description: 'Dash SDK (DashJS) branch to be injected into mn-bootstrap'
+    default: GITHUB_REF
+runs:
+  using: "composite"
+  steps:
+    - run: echo DAPI branch is ${{ inputs.dapi-branch }}.
+      shell: bash
+    - run: echo Drive branch is ${{ inputs.drive-branch }}.
+      shell: bash
+    - run: echo SDK branch is ${{ inputs.sdk-branch }}.
+      shell: bash
+    # - run: echo GITHUB_WORKSPACE branch is ${{ GITHUB_WORKSPACE }}.
+    #   shell: bash
+    # - run: echo GITHUB_HEAD_REF branch is ${{ GITHUB_HEAD_REF }}.
+    #   shell: bash
+    # - run: echo GITHUB_BASE_REF branch is ${{ GITHUB_BASE_REF }}.
+    #   shell: bash
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
+      shell: bash
+    - name: Set up tools
+      shell: bash
+      run: |
+        echo "Starting to set up tools"
+        pwd
+        ls
+        echo "Running NPM"
+        npm ci && npm link
+        echo "Done setting up tools"
+        echo "Starting start node script"
+        source bin/start-local-node.sh $GITHUB_WORKSPACE/package.json --override-major-version=0 --dapi-branch=$DAPI_BRANCH --drive-branch=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
