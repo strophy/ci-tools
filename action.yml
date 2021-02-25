@@ -46,7 +46,7 @@ runs:
         pwd
     - name: Set up tools
       shell: bash
-      working-directory: ~/work/ci-tools
+      working-directory: /home/runner/work/ci-tools
       run: |
         pwd
         echo "Starting to set up tools"
