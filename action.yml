@@ -31,6 +31,8 @@ runs:
         echo "Making work dir"
         echo "Starting dir:"
         pwd
+        echo "Starting dir list:"
+        ls -lha
         mkdir -p ~/work/ci-tools
         cd ~/work/ci-tools
         pwd
