@@ -25,44 +25,11 @@ runs:
     #   shell: bash
     # - run: echo GITHUB_BASE_REF branch is ${{ GITHUB_BASE_REF }}.
     #   shell: bash
-    - name: Show action path
-      shell: bash
-      run: |
-        echo "Action path:" ${{ github.action_path }}
-        cd ${{ github.action_path }}
-        pwd
-        ls -lha
-    - name: Make work directory
-      shell: bash
-      run: |
-        echo "Making work dir"
-        echo "Starting dir:"
-        pwd
-        echo "Starting dir list:"
-        ls -lha
-        mkdir -p ~/work/ci-tools
-        cd ~/work/ci-tools
-        pwd
-        ls
-    - name: test working dir
-      shell: bash
-      run: |
-        cd ~/work
-        ls
-        pwd
-        cd ci-tools
-        ls
-        pwd
     - name: Set up tools
       shell: bash
-      working-directory: /home/runner/work/ci-tools
+      working-directory: ${{ github.action_path }}
       run: |
         pwd
         echo "Starting to set up tools"
-        pwd
-        ls
-        echo "Running NPM"
         npm ci && npm link
-        echo "Done setting up tools"
-        echo "Starting start node script"
         source bin/start-local-node.sh $GITHUB_WORKSPACE/package.json --override-major-version=0 --dapi-branch=$DAPI_BRANCH --drive-branch=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
