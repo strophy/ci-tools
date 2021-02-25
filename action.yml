@@ -25,11 +25,6 @@ runs:
     #   shell: bash
     # - run: echo GITHUB_BASE_REF branch is ${{ GITHUB_BASE_REF }}.
     #   shell: bash
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
-      shell: bash
     - name: Make work directory
       shell: bash
       run: |
@@ -51,7 +46,7 @@ runs:
         pwd
     - name: Set up tools
       shell: bash
-      working-directory: work/ci-tools
+      working-directory: ~/work/ci-tools
       run: |
         pwd
         echo "Starting to set up tools"
