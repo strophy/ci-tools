@@ -25,6 +25,13 @@ runs:
     #   shell: bash
     # - run: echo GITHUB_BASE_REF branch is ${{ GITHUB_BASE_REF }}.
     #   shell: bash
+    - name: Show action path
+      shell: bash
+      run: |
+        echo "Action path:" ${{ github.action_path }}
+        cd ${{ github.action_path }}
+        pwd
+        ls -lha
     - name: Make work directory
       shell: bash
       run: |
