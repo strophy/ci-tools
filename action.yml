@@ -62,6 +62,8 @@ runs:
         echo "cache pull debug"
         pwd
         ls -lha
+        cd tmp
+        ls -lha
         cd mn-bootstrap
         docker-compose pull || true
         echo "cache pull debug done"
