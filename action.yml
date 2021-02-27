@@ -67,6 +67,9 @@ runs:
         cd mn-bootstrap
         echo "in mn-bootstrap"
         ls -lha
+        echo "trying to use var"
+        cd $MN_RELEASE_DIR
+        ls -lha
         docker-compose pull || true
         echo "cache pull debug done"
     - name: Start local node
