@@ -103,3 +103,6 @@ then
 fi
 
 npm link
+
+echo "Env in script"
+printenv

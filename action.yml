@@ -69,8 +69,10 @@ runs:
         ls -lha
         echo "trying to use var $MN_RELEASE_DIR"
         cd $MN_RELEASE_DIR
-        ls -lha
         pwd
+        ls -lha
+        echo "env out of script"
+        printenv
         docker-compose pull || true
         echo "cache pull debug done"
     - name: Start local node
