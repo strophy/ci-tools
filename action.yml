@@ -58,7 +58,7 @@ runs:
     - name: Pull from cache
       shell: bash
       working-directory: ${{ github.action_path }}
-      run: docker-compose pull || true
+      run: cd mn-bootstrap && docker-compose pull || true
     - name: Start local node
       shell: bash
       working-directory: ${{ github.action_path }}
