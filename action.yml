@@ -65,6 +65,8 @@ runs:
         cd tmp
         ls -lha
         cd mn-bootstrap
+        echo "in mn-bootstrap"
+        ls -lha
         docker-compose pull || true
         echo "cache pull debug done"
     - name: Start local node
