@@ -58,7 +58,13 @@ runs:
     - name: Pull from cache
       shell: bash
       working-directory: ${{ github.action_path }}
-      run: cd mn-bootstrap && docker-compose pull || true
+      run: |
+        echo "cache pull debug"
+        pwd
+        ls -lha
+        cd mn-bootstrap
+        docker-compose pull || true
+        echo "cache pull debug done"
     - name: Start local node
       shell: bash
       working-directory: ${{ github.action_path }}
