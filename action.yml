@@ -10,8 +10,6 @@ inputs:
   repo-token:
     description: 'GITHUB_TOKEN secret'
 outputs:
-  mn-release-dir:
-    let's try and output this in the script, or if that fails, in the meta file after the script
   current-version:
     description: Current version
     value: ${{ steps.set-variables.outputs.current-version }}
