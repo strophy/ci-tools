@@ -106,3 +106,6 @@ npm link
 
 echo "Env in script"
 printenv
+
+echo "MN-DIR=$TMP/mn-bootstrap/$MN_RELEASE_DIR" >> $GITHUB_ENV
+echo $MN-DIR

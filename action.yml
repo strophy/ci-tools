@@ -10,6 +10,8 @@ inputs:
   repo-token:
     description: 'GITHUB_TOKEN secret'
 outputs:
+  mn-release-dir:
+    let's try and output this in the script, or if that fails, in the meta file after the script
   current-version:
     description: Current version
     value: ${{ steps.set-variables.outputs.current-version }}
@@ -74,6 +76,8 @@ runs:
         echo "env out of script"
         printenv
         docker-compose pull || true
+        echo "MN-DIR is: "
+        echo "$MN-DIR"
         echo "cache pull debug done"
     - name: Start local node
       shell: bash
