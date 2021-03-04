@@ -74,9 +74,11 @@ runs:
         echo "env out of script"
         printenv
         docker-compose pull || true
-        echo "MN-DIR is: "
-        echo "$MN-DIR"
+        echo "MN_DIR is: "
+        echo "$MN_DIR"
         echo "cache pull debug done"
+        cd $MN_DIR
+        docker-compose pull
     - name: Start local node
       shell: bash
       working-directory: ${{ github.action_path }}
