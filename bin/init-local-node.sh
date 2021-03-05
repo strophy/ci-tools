@@ -73,6 +73,7 @@ then
   cd "$TMP"/dapi
   git checkout "$dapi_branch"
   mn_bootstrap_dapi_options="--dapi-image-build-path=$TMP/dapi"
+  echo "mn_bootstrap_dapi_options=--dapi-image-build-path=$TMP/dapi" >> $GITHUB_ENV
 fi
 
 # Download drive from defined branch
@@ -85,6 +86,7 @@ then
   cd "$TMP"/drive
   git checkout "$drive_branch"
   mn_bootstrap_drive_options="--drive-image-build-path=$TMP/drive"
+  echo "mn_bootstrap_drive_options=--drive-image-build-path=$TMP/drive" >> $GITHUB_ENV
 fi
 
 # Download and install mn-bootstrap
