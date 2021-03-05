@@ -59,26 +59,7 @@ runs:
       shell: bash
       working-directory: ${{ github.action_path }}
       run: |
-        echo "cache pull debug"
-        pwd
-        ls -lha
-        cd tmp
-        ls -lha
-        cd mn-bootstrap
-        echo "in mn-bootstrap"
-        ls -lha
-        echo "trying to use var $MN_RELEASE_DIR"
-        cd $MN_RELEASE_DIR
-        pwd
-        ls -lha
-        echo "env out of script"
-        printenv
-        docker-compose pull || true
-        echo "MN_DIR is: "
-        echo "$MN_DIR"
-        echo "cache pull debug done"
         cd $MN_DIR
-        pwd
         mn config:envs >> .env
         docker-compose pull
     - name: Start local node
@@ -86,7 +67,7 @@ runs:
       working-directory: ${{ github.action_path }}
       run: |
         echo "Starting local node..."
-        cd $MN_DIR
+        pwd
         source bin/start-local-node.sh $GITHUB_WORKSPACE/package.json \
           --override-major-version=0 \
           --dapi-branch=${{ inputs.dapi-branch }} \
