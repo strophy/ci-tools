@@ -39,9 +39,16 @@ runs:
       run: |
         echo "DAPI branch:" ${{ inputs.dapi-branch }}
         echo "Drive branch: " ${{ inputs.drive-branch }}
-    - name: Log in to GPR
+    - name: Log in to ghcr.io
       shell: bash
-      run: echo ${{ inputs.repo-token }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+      run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+    - name: Cache npm dependencies
+      uses: actions/cache@v2
+      with:
+        path: '~/.npm'
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
     - name: Set up tools
       shell: bash
       working-directory: ${{ github.action_path }}
