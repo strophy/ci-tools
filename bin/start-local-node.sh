@@ -61,7 +61,7 @@ mn config:set platform.drive.abci.log.stdout.level trace
 
 
 echo "Starting local init"
-OUTPUT=$(mn setup local "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
+OUTPUT=$(mn setup local masternode "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
 
 FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
 DPNS_CONTRACT_ID=$(mn config:get platform.dpns.contract.id)
