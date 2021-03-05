@@ -7,8 +7,6 @@ inputs:
   drive-branch:
     description: 'drive branch to be injected into mn-bootstrap'
     default: $GITHUB_REF
-  repo-token:
-    description: 'GITHUB_TOKEN secret'
 outputs:
   current-version:
     description: Current version
