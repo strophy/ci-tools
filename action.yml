@@ -75,7 +75,9 @@ runs:
     - name: Push to cache
       shell: bash
       working-directory: ${{ github.action_path }}
-      run: docker-compose push || true
+      run: |
+        cd $MN_DIR
+        docker-compose push || true
     - name: Set variables
       id: set-variables
       shell: bash
