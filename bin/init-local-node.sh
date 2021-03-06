@@ -106,8 +106,43 @@ fi
 
 npm link
 
-echo "Env in script"
-printenv
+# Setup node for local node mn-bootstrap
+echo "Setting up a local node"
 
-echo "MN_DIR=$TMP/mn-bootstrap/$MN_RELEASE_DIR" >> $GITHUB_ENV
-echo $MN_DIR
+mn config:default local
+mn config:set core.miner.enable true
+mn config:set core.miner.interval 1s
+mn config:set environment development
+mn config:set platform.drive.abci.log.stdout.level trace
+
+echo "Starting local init"
+OUTPUT=$(mn setup local masternode "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options" -v)
+
+FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
+DPNS_CONTRACT_ID=$(mn config:get platform.dpns.contract.id)
+DPNS_CONTRACT_BLOCK_HEIGHT=$(mn config:get platform.dpns.contract.blockHeight)
+DPNS_TOP_LEVEL_IDENTITY_ID=$(mn config:get platform.dpns.ownerId)
+DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "HD private key:" | awk '{$1=""; printf $5}')
+
+echo "Node is configured:"
+
+echo "FAUCET_PRIVATE_KEY: ${FAUCET_PRIVATE_KEY}"
+echo "DPNS_CONTRACT_ID: ${DPNS_CONTRACT_ID}"
+echo "DPNS_CONTRACT_BLOCK_HEIGHT: ${DPNS_CONTRACT_BLOCK_HEIGHT}"
+echo "DPNS_TOP_LEVEL_IDENTITY_ID: ${DPNS_TOP_LEVEL_IDENTITY_ID}"
+echo "DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY: ${DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY}"
+
+
+#Start mn-bootstrap
+echo "Starting mn-bootstrap"
+mn start
+
+#Export variables
+export CURRENT_VERSION
+export FAUCET_PRIVATE_KEY
+export DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY
+export DPNS_TOP_LEVEL_IDENTITY_ID
+export DPNS_CONTRACT_ID
+export DPNS_CONTRACT_BLOCK_HEIGHT
+
+echo "Success"
