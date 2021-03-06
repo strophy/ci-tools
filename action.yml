@@ -54,6 +54,8 @@ runs:
       id: set-variables
       shell: bash
       run: |
+        echo "mn_bootstrap_drive_options=--drive-image-build-path=$TMP/drive" >> $GITHUB_ENV
+        echo "faucet-private-key=-k=$(echo $FAUCET_PRIVATE_KEY)"
         echo "::set-output name=current-version::$(echo $CURRENT_VERSION)"
         echo "::set-output name=faucet-private-key::$(echo $FAUCET_PRIVATE_KEY)"
         echo "::set-output name=dpns-contract-id::$(echo $DPNS_CONTRACT_ID)"
