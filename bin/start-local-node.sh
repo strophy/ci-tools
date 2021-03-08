@@ -146,8 +146,8 @@ export DPNS_CONTRACT_ID
 export DPNS_CONTRACT_BLOCK_HEIGHT
 
 if [ -n $GITHUB_ACTIONS ]
-echo "::set-output name=dpns-contract-block-height::$(echo $DPNS_CONTRACT_BLOCK_HEIGHT)"
 then
+  echo "::set-output name=dpns-contract-block-height::$(echo $DPNS_CONTRACT_BLOCK_HEIGHT)"
 fi
 
 echo "Success"
