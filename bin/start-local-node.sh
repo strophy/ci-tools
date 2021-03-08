@@ -149,6 +149,7 @@ if [[ -n $GITHUB_ACTIONS ]]
 then
   echo "setting vars"
   echo "dpns-contract-block-height=$DPNS_CONTRACT_BLOCK_HEIGHT" >> $GITHUB_ENV
+  echo "dpns-contract-id=$DPNS_CONTRACT_ID" >> $GITHUB_ENV
   echo "::set-output name=dpns-contract-block-height::$(echo $DPNS_CONTRACT_BLOCK_HEIGHT)"
 fi
 
