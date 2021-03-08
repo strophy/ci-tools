@@ -50,6 +50,13 @@ runs:
           --override-major-version=0 \
           --dapi-branch=${{ inputs.dapi-branch }} \
           --drive-branch=${{ inputs.drive-branch }}
+        echo "Done start local node"
+    - name: try to manually emit variable in this context
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: |
+        echo "Checking if var exists outside script context"
+        echo $DPNS_CONTRACT_BLOCK_HEIGHT
     - name: Set variables
       id: set-variables
       shell: bash
