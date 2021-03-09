@@ -147,10 +147,10 @@ export DPNS_CONTRACT_BLOCK_HEIGHT
 
 if [[ -n $GITHUB_ACTIONS ]]
 then
-  echo "setting vars"
-  echo "dpns-contract-block-height=$DPNS_CONTRACT_BLOCK_HEIGHT" >> $GITHUB_ENV
+  echo "current-version=$CURRENT_VERSION" >> $GITHUB_ENV
+  echo "faucet-private-key=$FAUCET_PRIVATE_KEY" >> $GITHUB_ENV
+  echo "dpns-top-level-identity-private-key=$DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY" >> $GITHUB_ENV
+  echo "dpns-top-level-identity-id=$DPNS_TOP_LEVEL_IDENTITY_ID" >> $GITHUB_ENV
   echo "dpns-contract-id=$DPNS_CONTRACT_ID" >> $GITHUB_ENV
-  echo "::set-output name=dpns-contract-block-height::$(echo $DPNS_CONTRACT_BLOCK_HEIGHT)"
+  echo "dpns-contract-block-height=$DPNS_CONTRACT_BLOCK_HEIGHT" >> $GITHUB_ENV
 fi
-
-echo "Success"

@@ -7,36 +7,12 @@ inputs:
   drive-branch:
     description: 'drive branch to be injected into mn-bootstrap'
     default: $GITHUB_REF
-outputs:
-  current-version:
-    description: Current version
-    value: ${{ steps.set-variables.outputs.current-version }}
-  faucet-private-key:
-    description: Faucet private key
-    value: ${{ steps.set-variables.outputs.faucet-private-key }}
-  dpns-contract-id:
-    description: DPNS contract ID
-    value: ${{ steps.set-variables.outputs.dpns-contract-id }}
-  dpns-contract-block-height:
-    description: DPNS contract block height
-    value: ${{ steps.set-variables.outputs.dpns-contract-block-height }}
-  dpns-top-level-identity-id:
-    description: DPNS top level identity ID
-    value: ${{ steps.set-variables.outputs.dpns-top-level-identity-id }}
-  dpns-top-level-identity-private-key:
-    description: DPNS top level identity private key
-    value: ${{ steps.set-variables.outputs.dpns-top-level-identity-private-key}}
-  # sdk-install:
-  #   description: SDK install
-  #   value: ${{ steps.set-variables.outputs.}}
+  sdk-install:
+    description: 'SDK install'
+    value: $GITHUB_REF
 runs:
   using: "composite"
   steps:
-    - name: Debug data
-      shell: bash
-      run: |
-        echo "DAPI branch:" ${{ inputs.dapi-branch }}
-        echo "Drive branch: " ${{ inputs.drive-branch }}
     - name: Set up tools
       shell: bash
       working-directory: ${{ github.action_path }}
@@ -51,21 +27,4 @@ runs:
           --dapi-branch=${{ inputs.dapi-branch }} \
           --drive-branch=${{ inputs.drive-branch }}
         echo "Done start local node"
-    - name: try to manually emit variable in this context
-      shell: bash
-      working-directory: ${{ github.action_path }}
-      run: |
-        echo "Checking if var exists outside script context"
-        echo $DPNS_CONTRACT_BLOCK_HEIGHT
-    - name: Set variables
-      id: set-variables
-      shell: bash
-      run: |
-        echo "mn_bootstrap_drive_options=--drive-image-build-path=$TMP/drive" >> $GITHUB_ENV
-        echo "faucet-private-key=-k=$(echo $FAUCET_PRIVATE_KEY)" >> $GITHUB_ENV
-        echo "::set-output name=current-version::$(echo $CURRENT_VERSION)"
-        echo "::set-output name=faucet-private-key::$(echo $FAUCET_PRIVATE_KEY)"
-        echo "::set-output name=dpns-contract-id::$(echo $DPNS_CONTRACT_ID)"
-        echo "::set-output name=dpns-contract-block-height::$(echo $DPNS_CONTRACT_BLOCK_HEIGHT)"
-        echo "::set-output name=dpns-top-level-identity-id::$(echo $DPNS_TOP_LEVEL_IDENTITY_ID)"
-        echo "::set-output name=dpns-top-level-identity-private-key::$(echo $DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY)"
+
