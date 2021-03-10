@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ea
+set -eax
 
 cmd_usage="Init local node
 
@@ -80,7 +80,7 @@ fi
 mn_bootstrap_drive_options="--drive-image-build-path="
 if [ -n "$drive_branch" ]
 then
-  echo "Cloning Drive from branch $dapi_branch"
+  echo "Cloning Drive from branch $drive_branch"
   cd "$TMP"
   git clone https://github.com/dashevo/drive.git
   cd "$TMP"/drive
