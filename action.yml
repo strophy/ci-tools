@@ -1,30 +1,26 @@
-name: 'Start Local Dash Node'
-description: 'Invokes mn-bootstrap to set up a local node for CI'
+name: 'Start local Dash network'
+description: 'Invokes mn-bootstrap to set up a local network for CI'
 inputs:
-  dapi-branch:
+  dapi-image-build-branch:
     description: 'dapi branch to be injected into mn-bootstrap'
-    default: $GITHUB_REF
-  drive-branch:
+  drive-image-build-branch:
     description: 'drive branch to be injected into mn-bootstrap'
-    default: $GITHUB_REF
-  sdk-install:
-    description: 'SDK install'
-    value: $GITHUB_REF
+  install-sdk-version:
+    description: 'Dash SDK (DashJS) branch to be injected into mn-bootstrap'
+
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Set up tools
       shell: bash
       working-directory: ${{ github.action_path }}
       run: npm ci && npm link
-    - name: Start local node
+    - name: Start local network
       shell: bash
       working-directory: ${{ github.action_path }}
       run: |
-        echo "Start local node..."
         source bin/start-local-node.sh $GITHUB_WORKSPACE/package.json \
           --override-major-version=0 \
-          --dapi-branch=${{ inputs.dapi-branch }} \
-          --drive-branch=${{ inputs.drive-branch }}
-        echo "Done start local node"
-
+          --dapi-branch=${{ inputs.dapi-image-build-branch }} \
+          --drive-branch=${{ inputs.drive-image-build-branch }} \
+          --sdk-branch=${{ inputs.install-sdk-version }}
