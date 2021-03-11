@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eax
+set -ea
 
 cmd_usage="Init local node
 
