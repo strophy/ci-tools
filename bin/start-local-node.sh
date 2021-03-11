@@ -116,13 +116,17 @@ NODE_COUNT=3
 mn config:set --config=local environment development
 mn config:set --config=local platform.drive.abci.log.stdout.level trace
 
+
+# TODO: Use `tee` to watch output and write to a file to get vars
 if [[ $CURRENT_VERSION == "0.19"* ]]
 then
-  OUTPUT=$(mn setup local --node-count="$NODE_COUNT" "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
+  mn setup local --node-count="$NODE_COUNT" "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options" | tee setup.log
+  #OUTPUT=$(mn setup local --node-count="$NODE_COUNT" "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
   CONFIG="local_1"
   MINER_CONFIG="local_seed"
 else
-  OUTPUT=$(mn setup local "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
+  mn setup local "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options" | tee setup.log
+  #OUTPUT=$(mn setup local "$mn_bootstrap_dapi_options" "$mn_bootstrap_drive_options")
   CONFIG="local"
   MINER_CONFIG="local"
 fi
@@ -130,11 +134,13 @@ fi
 mn config:set --config="$MINER_CONFIG" core.miner.enable true
 mn config:set --config="$MINER_CONFIG" core.miner.interval 60s
 
-FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
+FAUCET_PRIVATE_KEY=$(grep -m 1 "Private key:" setup.log | awk '{printf $4}')
+#FAUCET_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "Private key:" | awk '{printf $4}')
 DPNS_CONTRACT_ID=$(mn config:get --config="$CONFIG" platform.dpns.contract.id)
 DPNS_CONTRACT_BLOCK_HEIGHT=$(mn config:get --config="$CONFIG" platform.dpns.contract.blockHeight)
 DPNS_TOP_LEVEL_IDENTITY_ID=$(mn config:get --config="$CONFIG" platform.dpns.ownerId)
-DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "HD private key:" | awk '{$1=""; printf $5}')
+DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(grep -m 1 "HD private key:" setup.log | awk '{$1=""; printf $5}')
+#DPNS_TOP_LEVEL_IDENTITY_PRIVATE_KEY=$(echo "$OUTPUT" | grep -m 1 "HD private key:" | awk '{$1=""; printf $5}')
 
 echo "Node is configured:"
 
